@@ -16,8 +16,7 @@ print height, width
 cropped = image[start_row:end_row, start_col:end_col]
 
 height, width = cropped.shape[:2]
-print height
-print width
+print height, width
 
 cv2.imshow("Original Image", image)
 cv2.imshow("Cropped Image", cropped)
