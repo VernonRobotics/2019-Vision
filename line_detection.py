@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import math
 
 image = cv2.imread('Test_Images/image5.jpg')
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -51,7 +52,9 @@ def getPointsForRobotControl(upper_point, lower_point):
     y1 = (float)(y1-(height/2))/(height/2)
     x2 = (float)(x2-(width/2))/(width/2)
     y2 = (float)(y2-(height/2))/(height/2)
-    return x1, x2
+
+    angle = math.atan((x1-x2)/(y1-y2))
+    return x1, x2, angle
 
 print getPointsForRobotControl(coord1, coord2)
 
