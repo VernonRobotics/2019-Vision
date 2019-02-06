@@ -31,7 +31,7 @@ def vision_processing():
         vis_T.putNumber("Y", y)
         vis_T.putNumber("Angle", angle)'''
         counter = counter + 1
-
+        vis_T.putNumber("Y", counter)
 
         time.sleep(.4)
 
