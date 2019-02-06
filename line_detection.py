@@ -8,9 +8,6 @@ gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 M = np.ones(gray.shape, dtype= "uint8") * 10
 gray = cv2.subtract(gray, M)
 
-dst = cv2.fastNlMeansDenoisingColored(image, None, 6, 6, 7, 21)
-dst = cv2.cvtColor(dst, cv2.COLOR_BGR2GRAY)
-
 ret, threshold = cv2.threshold(gray, 200, 255, cv2.THRESH_BINARY)
 
 kernel = np.ones((5,5), np.uint8)
@@ -41,12 +38,12 @@ coord1 = (int(((-1 * lefty)/slope)),0)
 coord2 = (int((((-1 * lefty)+height)/slope)),height)
 cv2.line(image,(cols-1,righty),(0,lefty),(0,0,255),2)
 cv2.line(image, coord1, coord2, (255,0,0), 3)
-cv2.imshow("Largest Contour", image)
+#cv2.imshow("Largest Contour", image)
 
     
-def getPointsForRobotControl(upper_point, lower_point):
-    x1,y1 = upper_point[0],upper_point[1]
-    x2, y2 = lower_point[0], lower_point[1]
+def getPointsForRobotControl():
+    x1,y1 = coord1[0],coord1[1]
+    x2, y2 = coord2[0], coord2[1]
     angle = 0.0
     x1 = (float)(x1-(width/2))/(width/2)
     y1 = (float)(y1-(height/2))/(height/2)
@@ -54,11 +51,14 @@ def getPointsForRobotControl(upper_point, lower_point):
     y2 = (float)(y2-(height/2))/(height/2)
 
     angle = math.atan((x1-x2)/(y1-y2))
-    return x1, x2, angle
+    x = (x1+x2)/2
+    angle = round(angle,5)
+    x = round(x, 5)
+    return x, angle
 
-print getPointsForRobotControl(coord1, coord2)
+#print getPointsForRobotControl()
 
 #cv2.imshow("Opening", opening)
 #cv2.imshow("Contours", image)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+#cv2.waitKey(0)
+#cv2.destroyAllWindows()
