@@ -1,7 +1,7 @@
 import threading
 import time
-from networktables import Networktables
-from line_detection import getPointsForRobotControl
+from networktables import NetworkTables
+#from line_detection import getPointsForRobotControl
 
 cond = threading.Condition()
 notified = [False]
@@ -12,8 +12,8 @@ def connectionListener(connected, info):
         notified[0] = True
         cond.notify()
 
-Netwoktables.initialize(server='10.19.89.2')
-Networktables.addConnectionListener(connectionListener, immediateNotify=True)
+NetworkTables.initialize(server='10.19.89.2')
+NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
 
 with cond:
     print("Waiting")
@@ -22,7 +22,7 @@ with cond:
 
 print("Connected")
 
-vis_T = Networktables.getTable("VisionTable")
+vis_T = NetworkTables.getTable("VisionTable")
 robot_state = vis_T.getAutoUpdateValue("RobotState", "disabled")
 counter = 0
 def vision_processing():
